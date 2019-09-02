@@ -72,6 +72,12 @@ class ContactController(base.BaseController):
                 errors[field] = [u'Missing Value']
                 error_summary[field] = u'Missing value'
 
+        # Check for blacklist
+        blacklist = config.get('ckanext.contact.blacklist', '')
+        if blacklist and data_dict.get(u'email', '').lower() in blacklist.lower():
+            error[u'email'] = [u'Not allowed']
+            error_summary[u'email'] = u'This email is blocked for submitting form'
+
         # only check the recaptcha if there are no errors
         if not errors:
             try:
