@@ -1,11 +1,16 @@
 {% extends "page.html" %}
 
+{% block breadcrumb_content %}
+    {{ super() }}
+  <li><a href="{{ h.url_for('contact_form') }}">Sugerir datos</a></li>
+
+{% endblock %}
 
 {% block primary_content %}
   <article class="module">
     <div class="module-content">
-      <h1 class="page-heading">Thank you!</h1>
-      <p>Your comment has been sent, we will answer you as soon as possible.</p>
+      <h1 class="page-heading">¡Gracias!</h1>
+      <p>Tu propuesta ha sido enviada, nos pondremos con ello lo antes posible.</p>
 
     </div>
   </article>
@@ -19,7 +24,7 @@
   </h2>
   <div class="module-content">
     <p>
-      Questions? Comments? We are always glad to hear from you!
+        ¿Quieres que se incorpore algún conjunto de datos nuevo? 
     </p>
   </div>
 </div>

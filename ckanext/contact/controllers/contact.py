@@ -121,13 +121,27 @@ class ContactController(base.BaseController):
                 u'body': body,
                 u'headers': {u'reply-to': data_dict[u'email']}
             }
+            
+            mail_dict_cc = {
+                u'recipient_email': config.get(u'ckanext.contact.mail_to_cc', config.get(u'email_to')),
+                u'recipient_name': config.get(u'ckanext.contact.recipient_name',
+                                              config.get(u'ckan.site_title')),
+                u'subject': config.get(u'ckanext.contact.subject',
+                                       _(u'Contact/Question from visitor')),
+                u'body': body,
+                u'headers': {u'reply-to': data_dict[u'email']}
+            }
 
             # allow other plugins to modify the mail_dict
             for plugin in p.PluginImplementations(IContact):
                 plugin.mail_alter(mail_dict, data_dict)
+                plugin.mail_alter(mail_dict_cc, data_dict)
+
 
             try:
                 mailer.mail_recipient(**mail_dict)
+                mailer.mail_recipient(**mail_dict_cc)
+                
             except (mailer.MailerException, socket.error):
                 email_success = False
 

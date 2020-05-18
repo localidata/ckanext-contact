@@ -12,16 +12,21 @@
 
         <fieldset>
             {% block contact_form_fields %}
-                {{ form.input('name', label=_('Contact Name'), id='field-name', value=data.name,
-                              error=errors.name, classes=['control-medium'], is_required=true) }}
-
+            
+                <div id='capaC1'>
+                {{ form.input('name', label=_('Contact Name'), id='field-name', value='ciudadano anonimo',
+                              error=errors.name, classes=['control-medium'], is_required=false) }}
+                </div>
+                <div id='capaC2'>
                 {{ form.input('email', label=_('Email'), id='field-email', type='email',
-                              value=data.email, error=errors.email, classes=['control-medium'],
-                              is_required=true) }}
-
-                {{ form.markdown('content', label=_('Your Request'), id='field-content',
+                              value='ciudadanoAnonimo@rivasciudad.es', error=errors.email, classes=['control-medium'],
+                              is_required=false) }}
+                </div>
+                <div id='capaC3'>
+                {{ form.markdown('content', label=_('Tu propuesta'), id='field-content',
                                  value=data.content, error=errors.content,
-                                 placeholder=_('What do you have to tell us?'), is_required=true) }}
+                                 placeholder=_('¿Qué datos estas buscando? ¿Por qué?'), is_required=true) }}
+                </div>
             {% endblock %}
         </fieldset>
 
@@ -35,5 +40,10 @@
             {% endblock %}
         </div>
     </form>
+    <style>
+        #capaC1,  #capaC2{
+            display:none;
+        }
+    </style>
 {% endblock %}
 
